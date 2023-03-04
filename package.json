@@ -1,7 +1,6 @@
 {
   "name": "learningproyect",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
@@ -21,5 +20,14 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/indarit/learningproyect.git"
+  },
+  "bugs": {
+    "url": "https://github.com/indarit/learningproyect/issues"
+  },
+  "homepage": "https://github.com/indarit/learningproyect#readme",
+  "description": ""
 }

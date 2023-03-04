@@ -1,0 +1,121 @@
+drop  table if exists curso cascade;
+drop  table if exists modulo cascade;
+drop  table if exists semana cascade;
+drop  table if exists grupo cascade;
+drop  table if exists alumno cascade;
+drop  table if exists evaluacion cascade;
+
+CREATE TABLE curso (
+    id             SERIAL PRIMARY KEY,
+    nombre_curso     VARCHAR(30) NOT null);
+    
+INSERT INTO curso (nombre_curso) VALUES ('Web Development');
+
+select * from curso;
+
+drop table if exists modulo;
+
+CREATE TABLE modulo (
+    id             	SERIAL PRIMARY KEY,
+    nombre_modulo   VARCHAR(30) NOT null,
+    curso_id    	INT REFERENCES curso(id));
+    
+INSERT INTO modulo (nombre_modulo, curso_id) VALUES ('Intro', 1);
+INSERT INTO modulo (nombre_modulo, curso_id) VALUES ('Html/Ccs', 1);
+INSERT INTO modulo (nombre_modulo, curso_id) VALUES ('JS1', 1);
+INSERT INTO modulo (nombre_modulo, curso_id) VALUES ('JS2', 1);
+INSERT INTO modulo (nombre_modulo, curso_id) VALUES ('JS3', 1);
+INSERT INTO modulo (nombre_modulo, curso_id) VALUES ('React', 1);
+INSERT INTO modulo (nombre_modulo, curso_id) VALUES ('Node', 1);
+INSERT INTO modulo (nombre_modulo, curso_id) VALUES ('SQL', 1);
+
+select * from modulo;
+
+drop table if exists semana;
+
+CREATE TABLE semana (
+    id             	SERIAL PRIMARY KEY,
+    modulo_id    	INT REFERENCES modulo(id),
+    numero_semana   INT NOT null);
+   
+INSERT INTO semana (modulo_id, numero_semana) VALUES (1, 1);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (1, 2);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (2, 1);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (2, 2);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (2, 3);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (3, 1);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (3, 2);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (3, 3);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (4, 1);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (4, 2);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (4, 3);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (5, 1);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (5, 2);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (5, 3);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (6, 1);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (6, 2);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (6, 3);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (7, 1);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (7, 2);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (7, 3);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (8, 1);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (8, 2);
+INSERT INTO semana (modulo_id, numero_semana) VALUES (8, 3);
+
+select * from semana;
+
+drop table if exists grupo;
+
+CREATE TABLE grupo (
+    id             	VARCHAR(40) PRIMARY KEY,
+    curso_id    	INT REFERENCES curso(id),
+    estado			INT not null);
+   
+INSERT INTO grupo (id, curso_id, estado) VALUES ('JUL2022SP',1,1);
+INSERT INTO grupo (id, curso_id, estado) VALUES ('JUL2022EN',1,1);
+
+select * from grupo;
+
+drop table if exists alumno;
+
+create table alumno (
+    id             	SERIAL PRIMARY KEY,
+    nombre_alumno   VARCHAR(40) NOT null,
+    apellido_alumno	VARCHAR(40) NOT null,
+    nro_identif     VARCHAR(15),
+   	dir_email		VARCHAR(30),
+   	dir_github   	VARCHAR(30),
+   	telefono		VARCHAR(15),
+   	nacionalidad	VARCHAR(20),
+   	fecha_nac		DATE,
+   	grupo_id 		VARCHAR(40) REFERENCES grupo(id),
+   	estado          INT not null,
+    password        VARCHAR (100) not null); 
+   
+
+INSERT INTO alumno (nombre_alumno,apellido_alumno,nro_identif,dir_email, dir_github,telefono,nacionalidad,fecha_nac,grupo_id,estado,password) 
+   VALUES ('LUIS','RAMOS','Y-7867254-A','luistramos@gmail.com','https://github.com/luistramos',671246544,'VENEZOLANA','1978-12-13','JUL2022SP',1,'123456987bnmv');
+INSERT INTO alumno (nombre_alumno,apellido_alumno,nro_identif,dir_email, dir_github,telefono,nacionalidad,fecha_nac,grupo_id,estado, password) 
+   VALUES ('Andrea','Acosta','Y-7788664-C','andrea_acosta@gmail.com','https://github.com/@indarit',651300967,'VENEZOLANA','1980-10-27','JUL2022SP',1,'45454578myui');
+
+select * from alumno;
+
+drop table if exists evaluacion;
+
+CREATE TABLE evaluacion (
+    id             	SERIAL PRIMARY KEY,
+    alumno_id		INT REFERENCES alumno(id),
+    semana_id    	INT REFERENCES semana(id),
+    status_tarea	VARCHAR(1),
+    status_asist1	VARCHAR(1),
+    status_asist2	VARCHAR(1));
+    
+   
+INSERT INTO evaluacion (alumno_id, semana_id, status_tarea,status_asist1,status_asist2) VALUES (1,1,'S','N','S');
+
+select * from evaluacion;
+
+select nombre_modulo, nombre_curso, numero_semana
+from modulo 
+join curso c on modulo.curso_id = c.id
+join semana s on modulo.id = s.modulo_id; 

@@ -1,0 +1,57 @@
+GET /grupos?curso_id=xxx
+[
+    {
+        "id": ___,
+        "estado": ___,
+        "curso_id": ___
+    },
+    {...}
+]
+GET /modulos?curso_id_xxx
+[
+    {
+        "id": ___,
+        "nombre": ___,
+        "numero_semanas": ___
+    },
+    {...}
+]
+GET /alumnos/<id>
+{
+    "id": ___,
+    "nombre": ___,
+    "apellidos": ___,
+    "github": ___,
+    "grupo_id": ___,
+    "evaluaciones": [
+        {
+            "modulo_id": ___,
+            "semana_id": ___,
+            "asistencia_1": ___,
+            "asistencia_2": ___,
+            "tarea": ___
+        },
+        {...}
+    ]
+}
+GET /alumnos&grupo_id=xxx&modulo_id=yyy&semana_id=zzz
+[
+    {
+        "id": ___,
+        "nombre": ___,
+        "apellidos": ___,
+        "github": ___,
+        "grupo_id": ___,
+        "evaluaciones": [
+            {
+                "modulo_id": ___,
+                "semana_id": ___,
+                "asistencia_1": ___,
+                "asistencia_2": ___,
+                "tarea": ___
+            },
+            {...}
+        ]
+    },
+    {...}
+]
